@@ -1,55 +1,43 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../App';
 import Header from '../Headers/Header';
+import { useLoading,SpinningCircles } from '@agney/react-loading';
+import Task from '../Task/Task';
 
 const TaskEvent = () => {
-    const btnStyle = {
-        width: '100px',
-        marginLeft: '100px',
-        padding: '8px 15px',
-        backgroundColor: '#E3E3E3',
-        borderRadius: '5px',
-        border:'none'
-    }
-    const[user, setUser ] = useContext(Context)
-    const[volunteerDetail, setVolunteerDetail] = useState([])
 
+    const[user, setUser ] = useContext(Context)
+    const [volunteerDetail, setVolunteerDetail] = useState([]);
+    const [loader, setLoader] = useState(true);
+    const { containerProps, indicatorEl } = useLoading({
+        loading: true,
+        indicator: <SpinningCircles width="50" />,
+      });
     useEffect(() => {
-        fetch('https://glacial-oasis-27688.herokuapp.com/eventTask?email=' + sessionStorage.getItem('email'))
+        fetch('http://localhost:5000/eventTask?email=' + sessionStorage.getItem('email'))
         .then(res => res.json())
             .then(data => {
-                console.log(data)
+                if (data) {
+                    console.log(data);
+                    setLoader(false);
             setVolunteerDetail(data)
+           }
         })
-    }, [user.email])
+    }, [])
+    console.log(volunteerDetail)
 
-    const handleCancel = (id) => {
-        console.log(id)
-        fetch(`https://glacial-oasis-27688.herokuapp.com/cancel/${id}`, {
-            method:'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-            console.log(data)
-            })
-            window.location.reload();
-    }
     return (
         <div style={{background: '#F8FAFC',height:'100%'}}>
             <div className="container">
                 <Header></Header>
                 <div className="row justify-content-center">
+                    {
+                        loader &&    <section {...containerProps}>
+                        {indicatorEl} 
+                      </section>
+                    }
                 {
-                volunteerDetail.map(task => <div className="col-md-5 bg-white m-4" style={{width:'50%'}}>
-                    <div className="m-3 row justify-content-between">
-                        <img className="col-md-6" style={{height:'175px',width:'200px'}}   alt=""/>
-                        <div className="col-md-6 d-flex flex-column ">
-                            <h4 >{task.title}</h4>
-                            <p>{task.date}</p>
-                            <button onClick={()=>handleCancel(task._id)} className="align-items-end mt-auto" style={btnStyle}>Cancel</button>
-                        </div>
-                    </div>
-                </div>)
+                        volunteerDetail.map(tasks => <Task tasks={tasks}></Task>)
             }
                 </div>
          </div>

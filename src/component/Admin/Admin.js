@@ -6,6 +6,7 @@ import { faPlus, faUserCog,faTrash } from '@fortawesome/free-solid-svg-icons';
 import './Admin.css';
 import VulonteerList from '../VulonteerList/VulonteerList';
 import AddEvent from '../AddEvent/AddEvent';
+import { useLoading,ThreeDots} from '@agney/react-loading';
 
 const Admin = () => {
     const [adminAddEvent, setAdminAddEvent] = useState({
@@ -25,14 +26,21 @@ const Admin = () => {
          })
     };
     const [volunteer, setVolunteer] = useState([]);
+    const[loader,setLoader] = useState(true);
     useEffect(() => {
-        fetch('https://glacial-oasis-27688.herokuapp.com/allVolunteer')
+        fetch('http://localhost:5000/allVolunteer')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
-            setVolunteer(data)
+                if (data) {
+                    setLoader(false);
+                    setVolunteer(data)
+                }
         })
-    },[])
+    }, [volunteer])
+    const { containerProps, indicatorEl } = useLoading({
+        loading: true,
+        indicator: <ThreeDots width="50" />,
+      });
     
     return (
         <div className="row">
@@ -48,7 +56,12 @@ const Admin = () => {
                 <h3 style={{ marginTop: '50px' }}>Volunteer register list</h3>
                 <div style={{ background: '#F8FAFC', height: '100vh', width: '100%', paddingTop: '50px' }}>
                     {
-                        adminAddEvent.admin && <>
+                        loader &&     <section {...containerProps}>
+                        {indicatorEl} 
+                      </section>
+                    }
+                    {
+                        (adminAddEvent.admin && loader===false) && <>
                             <table>
                             <thead>
                                 <tr>

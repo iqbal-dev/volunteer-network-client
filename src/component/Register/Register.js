@@ -13,18 +13,24 @@ const Register = () => {
 
 
     useEffect(() => {
-        fetch(`https://glacial-oasis-27688.herokuapp.com/getVolunteerDetail/${user.id}`)
+        fetch(`http://localhost:5000/getVolunteerDetail/${user.id}`)
         .then(res => res.json())
             .then(data => {
-            const{ title, pic} = data;
-            const newData = {...user,title:title,pic:pic}
+                let { title, pic, image } = data;
+                if (image===undefined) {
+                     image = false
+                }
+                
+                let newData = {...user,title:title,pic:pic,image:image}
+                console.log(newData);
             setUser(newData);
     })
     }, [])
     
     const onSubmit = data => {
         const volunteerDetails = { ...user, register: data, date: data.date, description: data.description }
-        fetch('https://glacial-oasis-27688.herokuapp.com/register', {
+        console.log(volunteerDetails)
+        fetch('http://localhost:5000/register', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../../App';
 import img from "../../images/animalShelter.png";
 
+
 const Volunteer = ({ task }) => {
-    if (task.pic == null) {
-        task.pic ='animalShelter.png'
-    }
 
     function get_random_color() 
 {
@@ -28,11 +26,16 @@ const Volunteer = ({ task }) => {
 
         setUser(newUser)
     }
+
     return (
-        
         <div className="col-md-3 my-2" style={{ position: 'relative' }}>
-            <Link to='/register' onClick={()=>handleTarget(task._id)}  >
-                <img  style={{ height: '320px', width: '270px' }} src={require(`../../images/${task.pic}`)} alt="" />
+          
+            <Link to='/register' onClick={() => handleTarget(task._id)}  >
+                {
+                    task.image ? <img style={{ height: '320px', width: '270px' }} src={`data:image/png;base64,${task.image.img}`} alt="" /> :
+                    <img  style={{ height: '320px', width: '270px' }} src={require(`../../images/${task.pic}`)} alt="" />
+                }
+                
                 <div  className="description" style={style}>
                     <p ><span  style={{color:'white',fontSize:'20px',marginTop:'20px'}}>{task.title}</span></p>
                 </div>
