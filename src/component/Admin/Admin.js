@@ -28,7 +28,7 @@ const Admin = () => {
     const [volunteer, setVolunteer] = useState([]);
     const[loader,setLoader] = useState(true);
     useEffect(() => {
-        fetch('http://localhost:5000/allVolunteer')
+        fetch('https://glacial-oasis-27688.herokuapp.com/allVolunteer')
             .then(res => res.json())
             .then(data => {
                 if (data) {

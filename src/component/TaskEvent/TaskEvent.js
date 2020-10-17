@@ -14,7 +14,7 @@ const TaskEvent = () => {
         indicator: <SpinningCircles width="50" />,
       });
     useEffect(() => {
-        fetch('http://localhost:5000/eventTask?email=' + sessionStorage.getItem('email'))
+        fetch('https://glacial-oasis-27688.herokuapp.com/eventTask?email=' + sessionStorage.getItem('email'))
         .then(res => res.json())
             .then(data => {
                 if (data) {

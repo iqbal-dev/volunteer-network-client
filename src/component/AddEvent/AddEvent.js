@@ -34,7 +34,7 @@ const AddEvent = () => {
         formData.append('description', data.description)
         formData.append('date', data.date)
       
-        fetch('http://localhost:5000/newService', {
+        fetch('https://glacial-oasis-27688.herokuapp.com/newService', {
           method: 'POST',
           body: formData
         })

@@ -13,7 +13,7 @@ const Register = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getVolunteerDetail/${user.id}`)
+        fetch(`https://glacial-oasis-27688.herokuapp.com/getVolunteerDetail/${user.id}`)
         .then(res => res.json())
             .then(data => {
                 let { title, pic, image } = data;
@@ -30,7 +30,7 @@ const Register = () => {
     const onSubmit = data => {
         const volunteerDetails = { ...user, register: data, date: data.date, description: data.description }
         console.log(volunteerDetails)
-        fetch('http://localhost:5000/register', {
+        fetch('https://glacial-oasis-27688.herokuapp.com/register', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

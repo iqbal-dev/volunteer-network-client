@@ -7,7 +7,7 @@ const VulonteerList = ({ value }) => {
 
     const location = useHistory();
     const trash = (id) => {
-        fetch(`http://localhost:5000/delete/${id}`, {
+        fetch(`https://glacial-oasis-27688.herokuapp.com/delete/${id}`, {
             method:'DELETE'
         })
             .then(res => res.json())
@@ -15,7 +15,6 @@ const VulonteerList = ({ value }) => {
         })
         window.location.reload();
     }
-    console.log(value)
     return (
         <>
 

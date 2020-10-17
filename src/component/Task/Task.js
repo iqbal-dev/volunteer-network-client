@@ -11,7 +11,7 @@ const Task = ({ tasks }) => {
     }
     console.log(tasks)
     const handleCancel = (id) => {
-        fetch(`http://localhost:5000/cancel/${id}`, {
+        fetch(`https://glacial-oasis-27688.herokuapp.com/cancel/${id}`, {
             method:'DELETE'
         })
             .then(res => res.json())

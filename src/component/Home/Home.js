@@ -19,7 +19,7 @@ const Home = () => {
         indicator: <Circles width="50" />,
       });
   useEffect(() => {
-    fetch('http://localhost:5000/getVolunteer')
+    fetch('https://glacial-oasis-27688.herokuapp.com/getVolunteer')
       .then(res => res.json())
         .then(data => {
             if (data) {
