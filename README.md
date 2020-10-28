@@ -2,8 +2,8 @@
 ![alt text](src/images/logos/../../logos/Group%201329.png)
 
 
-# Creative Agency
-A single page creative agency app where people are able to select service. And add service to their dashboard.
+# Volunteer Network
+A single page volunteer network app where people are able to select volunteer work. And add work to their dashboard.
 
 
 [Live Website](https://priceless-poincare-f1f1b9.netlify.app/) 
