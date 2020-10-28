@@ -30,19 +30,26 @@ const Register = () => {
     const onSubmit = data => {
         const volunteerDetails = { ...user, register: data, date: data.date, description: data.description }
         console.log(volunteerDetails)
-        fetch('https://glacial-oasis-27688.herokuapp.com/register', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify(volunteerDetails)
-            
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
+        if (user.id==="") {
+            alert('Please select your activity');
+            history.push('/');
+        }
+        else {
+            fetch('https://glacial-oasis-27688.herokuapp.com/register', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(volunteerDetails)
+                
             })
-            history.push('/eventTask')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+            
+                history.push('/eventTask')
+        }
     }
     
     return (
